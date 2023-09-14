@@ -93,6 +93,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   int red_delay = 6, yellow_delay = 3, green_delay = 4;
   int red_signal = 1, green_signal = 0, yellow_signal = 0;
+  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 1);
+  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, 1);
+  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
   while (1)
   {
     /* USER CODE END WHILE */
