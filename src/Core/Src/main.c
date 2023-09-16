@@ -54,11 +54,14 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+//GPIO_TypeDef* led_port[] = {LED_0_GPIO_Port, LED_1_Port, LED_2_Port, LED_3_Port, LED_4_Port, LED_5_Port, LED_6_Port, LED_7_Port, LED_8_Port, LED_9_Port, LED_10_Port, LED_11_Port};
+int led_pins[] = {LED_0_Pin, LED_1_Pin, LED_2_Pin, LED_3_Pin, LED_4_Pin, LED_5_Pin, LED_6_Pin, LED_7_Pin, LED_8_Pin, LED_9_Pin, LED_10_Pin, LED_11_Pin};
+
 void setAllClock(){
-	HAL_GPIO_WritePin(GPIOA, LED_0_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin|LED_5_Pin|LED_6_Pin|LED_7_Pin|LED_8_Pin|LED_9_Pin|LED_10_Pin|LED_11_Pin,GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, LED_0_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin|LED_5_Pin|LED_6_Pin|LED_7_Pin|LED_8_Pin|LED_9_Pin|LED_10_Pin|LED_11_Pin,1);
 }
 void clearAllClock(){
-	HAL_GPIO_WritePin(GPIOA, LED_0_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin|LED_5_Pin|LED_6_Pin|LED_7_Pin|LED_8_Pin|LED_9_Pin|LED_10_Pin|LED_11_Pin,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, LED_0_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin|LED_5_Pin|LED_6_Pin|LED_7_Pin|LED_8_Pin|LED_9_Pin|LED_10_Pin|LED_11_Pin,0);
 }
 /* USER CODE END 0 */
 
@@ -96,15 +99,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int signal = 0;
+  int i = 0;
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(signal == 0)
-		  setAllClock();
-	  if(signal == 1)
+//	  if(signal == 0)
+//		  setAllClock();
+	  if(i == 12){
 		  clearAllClock();
-	  signal = 1 - signal;
+		  i = 0;
+	  }
+	  HAL_GPIO_WritePin(GPIOA, led_pins[i], 1);
+	  i++;
 	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
