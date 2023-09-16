@@ -60,6 +60,7 @@ int led_pins[] = {LED_0_Pin, LED_1_Pin, LED_2_Pin, LED_3_Pin, LED_4_Pin, LED_5_P
 void setAllClock(){
 	HAL_GPIO_WritePin(GPIOA, LED_0_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin|LED_5_Pin|LED_6_Pin|LED_7_Pin|LED_8_Pin|LED_9_Pin|LED_10_Pin|LED_11_Pin,1);
 }
+
 void clearAllClock(){
 	HAL_GPIO_WritePin(GPIOA, LED_0_Pin|LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin|LED_5_Pin|LED_6_Pin|LED_7_Pin|LED_8_Pin|LED_9_Pin|LED_10_Pin|LED_11_Pin,0);
 }
@@ -103,8 +104,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-//	  if(signal == 0)
-//		  setAllClock();
 	  if(i == 12){
 		  clearAllClock();
 		  i = 0;
