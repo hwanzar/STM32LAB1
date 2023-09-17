@@ -92,7 +92,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   int sec = 0; int stat = 1;
-
+  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, 1);
+  HAL_GPIO_WritePin(GPIOA, LED_YELLOW_Pin,1);
   while (1)
   {
     /* USER CODE END WHILE */
