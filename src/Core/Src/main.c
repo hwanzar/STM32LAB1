@@ -109,27 +109,27 @@ int main(void)
 	  			  green_signal = 1;
 	  			  red_delay = 6;
 	  		  }
-	  	  }
-	  	  if(yellow_signal == 1){
-	  		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, 0);
-	  		  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
-	  		  yellow_delay -= 1;
-	  		  if(yellow_delay == 0){
-	  			  yellow_signal = 0;
-	  			  red_signal = 1;
-	  			  yellow_delay = 3;
-	  		  }
-	  	  }
-	  	  if(green_signal == 1){
-	  		  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
-	  		  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 1);
-	  		  green_delay -= 1;
-	  		  if(green_delay == 0){
-	  			  green_signal = 0;
-	  			  yellow_signal = 1;
-	  			  green_delay = 4;
-	  		  }
-	  	  }
+	  }
+	  if(yellow_signal == 1){
+		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, 0);
+		  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
+		  yellow_delay -= 1;
+		  if(yellow_delay == 0){
+			  yellow_signal = 0;
+			  red_signal = 1;
+			  yellow_delay = 3;
+		  }
+	  }
+	  if(green_signal == 1){
+		  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
+		  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 1);
+		  green_delay -= 1;
+		  if(green_delay == 0){
+			  green_signal = 0;
+			  yellow_signal = 1;
+			  green_delay = 4;
+		  }
+	  }
 	  	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
