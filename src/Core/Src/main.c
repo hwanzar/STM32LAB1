@@ -69,6 +69,11 @@ void setNumberOnClock(int num){
         HAL_GPIO_WritePin(GPIOA, led_pins[num], 1);
     }
 }
+void clearNumberOnClock(int num){
+	if (num >= 0 && num <= 11) {
+		HAL_GPIO_WritePin(GPIOA, led_pins[num], 0);
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -105,16 +110,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int i = 0;
+  int i = -1;
+  setAllClock();
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(i == 12){
-		  clearAllClock();
-		  i = 0;
+	  if(i == -1){
+		  setAllClock();
+		  i = 12;
 	  }
-	  setNumberOnClock(i);
-	  i++;
+	  clearNumberOnClock(i);
+//	  setNumberOnClock(i);
+	  i--;
 	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
