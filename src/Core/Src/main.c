@@ -98,23 +98,16 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   int i = 0;
   while (1)
   {
-    /* USER CODE END WHILE */
-//	  if(signal == 0)
-//		  setAllClock();
 	  if(i == 12){
-		  clearAllClock();
 		  i = 0;
 	  }
-	  HAL_GPIO_WritePin(GPIOA, led_pins[i], 1);
+	  HAL_GPIO_TogglePin(GPIOA, led_pins[i]);
 	  i++;
 	  HAL_Delay(1000);
-    /* USER CODE BEGIN 3 */
   }
-  /* USER CODE END 3 */
 }
 
 /**
