@@ -91,46 +91,35 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int red_delay = 6, yellow_delay = 3, green_delay = 4;
-  int red_signal = 1, green_signal = 0, yellow_signal = 0;
+
+
+//  int red_delay = 5, yellow_delay = 2, green_delay = 3;
+//  int red_signal = 1, green_signal = 0, yellow_signal = 0;
+  int signal = 9;
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 1);
   HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, 1);
   HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
   while (1)
   {
-    /* USER CODE END WHILE */
-	  if(red_signal == 1){
-	  		  // the red ON
-	  		  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 0);
-	  		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, 1);
-	  		  red_delay -= 1;
-	  		  if(red_delay == 0){
-	  			  red_signal = 0; // red OFF, turn yellow ON
-	  			  green_signal = 1;
-	  			  red_delay = 6;
-	  		  }
-	  }
-	  if(yellow_signal == 1){
-		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, 0);
-		  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
-		  yellow_delay -= 1;
-		  if(yellow_delay == 0){
-			  yellow_signal = 0;
-			  red_signal = 1;
-			  yellow_delay = 3;
-		  }
-	  }
-	  if(green_signal == 1){
-		  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
+	  if(signal >= 5 && signal < 10){
+	  		// RED on
+	  		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 0);
+	  		HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, 1);
+	  		HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
+	  	}
+	  else if(signal >= 2 && signal < 5){
+		  // RED to GREEN state
 		  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 1);
-		  green_delay -= 1;
-		  if(green_delay == 0){
-			  green_signal = 0;
-			  yellow_signal = 1;
-			  green_delay = 4;
-		  }
+		  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 0);
 	  }
-	  	  HAL_Delay(1000);
+	  else if(signal >= 0 && signal < 2){
+		  // GREEN to YELLOW
+		  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
+		  HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, 0);
+	  }
+	  else signal = 10;//reset state
+	  signal--;
+	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
