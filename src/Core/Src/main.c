@@ -90,7 +90,7 @@ void way1_state(int signal){
 	}
 	if(signal >= 0 && signal < 2){
 		// GREEN to YELLOW
-		display7SEG(signal);
+		display7SEG(signal+1);
 		HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, 0);
 		HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, 1);
 	}
