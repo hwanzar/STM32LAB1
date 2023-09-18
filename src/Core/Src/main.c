@@ -54,30 +54,41 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void stop_way1(){
-	  HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, 1);
-	  HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, 0);
+void way1_state(int signal){
+	if(signal >= 5 && signal < 10){
+		// RED on
+		HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, 1);
+		HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, 0);
+		HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, 0);
+	}
+	if(signal >= 2 && signal < 5){
+		// RED to GREEN state
+		HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, 0);
+		HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, 1);
+	}
+	if(signal >= 0 && signal < 2){
+		// GREEN to YELLOW
+		HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, 0);
+		HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, 1);
+	}
 }
-void stop_way2(){
-	  HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, 1);
-	  HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, 0);
-}
-void slow_way1(){
-	  HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, 1);
-	  HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, 0);
-
-}
-void slow_way2(){
-	  HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, 1);
-	  HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, 0);
-}
-void go_way1(){
-	  HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, 1);
-	  HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, 0);
-}
-void go_way2(){
-	  HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, 1);
-	  HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, 0);
+void way2_state(int signal){
+	if(signal >= 7 && signal < 10){
+		// GREEN on
+		HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, 0);
+		HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, 0);
+		HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, 1);
+	}
+	if(signal >= 5 && signal < 7){
+		// GREEN to YELLOW
+		HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, 0);
+		HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, 1);
+	}
+	if(signal >= 0 && signal < 5){
+		// YELLOW to red state
+		HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, 0);
+		HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, 1);
+	}
 }
 /* USER CODE END 0 */
 
@@ -120,52 +131,17 @@ int main(void)
   HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, 0); //off
 
 
-  int red_signal = 1, green_signal = 0, yellow_signal = 0;
-  int red_delay = 5, green_delay = 3, yellow_delay = 2;
-
-
     /* USER CODE END 2 */
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
+  int sec = 9;
   while (1)
   {
-	  if(red_signal == 1){
-		  //RED1 ON - GREEN2 ON
-		  stop_way1();
-		  red_delay -= 1;
-		  if(!yellow_signal){
-			  go_way2();
-		  }
-		  if(red_delay <= 1 && red_delay > 0){
-			  yellow_signal = 1;
-			  slow_way2();
-		  }
-
-		  if(red_delay == 0){
-			  red_signal = 0;
-			  green_signal = 1;
-			  yellow_signal = 0;
-			  red_delay = 5;
-		  }
-	  }
-	  if(green_signal == 1){
-		  stop_way2();
-		  red_delay -= 1;
-		  if(!yellow_signal){
-			  go_way1();
-		  }
-		  if(red_delay <= 1 && red_delay > 0){
-			  yellow_signal = 1;
-			  slow_way1();
-		  }
-		  if(red_delay == 0){
-			  red_signal = 1;
-			  green_signal = 0;
-			  yellow_signal = 0;
-			  red_delay = 5;
-		  }
-	  }
+	  if(sec < 0) sec = 9;
+	  way1_state(sec);
+	  way2_state(sec);
+	  sec--;
 	  HAL_Delay(1000);
       /* USER CODE END WHILE */
 
