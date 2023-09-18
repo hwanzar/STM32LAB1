@@ -74,6 +74,17 @@ void clearNumberOnClock(int num){
 		HAL_GPIO_WritePin(GPIOA, led_pins[num], 0);
 	}
 }
+void displayClock(int hr, int min, int sec){
+	int s = sec/5;
+	int m = min/5;
+	if(sec % 5 == 0){
+		clearAllClock();
+		setNumberOnClock(hr);
+		setNumberOnClock(m);
+		setNumberOnClock(s);
+	}
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -110,19 +121,31 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int i = -1;
-  setAllClock();
+
+
+  int hour = 6, minute = 40, second = 0;
+  clearAllClock();
+
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(i == -1){
-		  setAllClock();
-		  i = 12;
+	  displayClock(hour, minute, second);
+	  second++;
+	  if(second >= 60){
+		  // pass 1 minute
+		  second = 0;
+		  minute++;
 	  }
-	  clearNumberOnClock(i);
-//	  setNumberOnClock(i);
-	  i--;
+	  if(minute >= 60){
+		  second = 0;
+		  minute = 0;
+		  hour++;
+	  }
+	  if(hour >= 12){
+		  hour = 0;
+	  }
 	  HAL_Delay(1000);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
