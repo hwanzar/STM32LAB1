@@ -77,17 +77,20 @@ void display7SEG(int num){
 void way1_state(int signal){
 	if(signal >= 5 && signal < 10){
 		// RED on
+		display7SEG(signal - 4);
 		HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, 1);
 		HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, 0);
 		HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, 0);
 	}
 	if(signal >= 2 && signal < 5){
 		// RED to GREEN state
+		display7SEG(signal - 1);
 		HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, 0);
 		HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, 1);
 	}
 	if(signal >= 0 && signal < 2){
 		// GREEN to YELLOW
+		display7SEG(signal);
 		HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, 0);
 		HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, 1);
 	}
@@ -150,8 +153,8 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-	  if(sec < 0) sec = 9;\
-	  display7SEG(sec);
+	  if(sec < 0) sec = 9;
+//	  display7SEG(sec);
 	  way1_state(sec);
 	  way2_state(sec);
 	  sec--;
