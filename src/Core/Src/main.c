@@ -123,7 +123,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
 
-  int hour = 6, minute = 40, second = 0;
+  int hour = 6, minute = 50, second = 0;
   clearAllClock();
 
   while (1)

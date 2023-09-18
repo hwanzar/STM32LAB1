@@ -223,10 +223,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
 
-  int hour = 6, minute = 40, second = 0;
+  int hour = 6, minute = 50, second = 0;
  8000216:	2306      	movs	r3, #6
  8000218:	60fb      	str	r3, [r7, #12]
- 800021a:	2328      	movs	r3, #40	; 0x28
+ 800021a:	2332      	movs	r3, #50	; 0x32
  800021c:	60bb      	str	r3, [r7, #8]
  800021e:	2300      	movs	r3, #0
  8000220:	607b      	str	r3, [r7, #4]
